@@ -19,7 +19,13 @@ const CARD = {
   web: "",
   facebook: "https://www.facebook.com/", // aqui poner el link de facebook
   instagram: "https://instagram.com/",  // aqui poner el link de instagram
-  direccion: "CDMX, México",
+  // cambio direccion 09-11-2025
+
+// En tu objeto CARD:
+direccion: "CDMX, México",
+mapa: "https://maps.app.goo.gl/vavewMdidbuJU7m39",
+
+
   nota: "", // si lo dejas vacío, mostramos solo el horario base
   mensajeWhats: "Hola Jorge, me interesa una cotización."
 };
@@ -86,8 +92,11 @@ function descargarVCard() {
     `TEL;TYPE=CELL,VOICE:${v.movilFormateado}`, // móvil
     `TEL;TYPE=CELL,VOICE;X-ABLabel="WhatsApp":${v.waSolo}`, // WhatsApp
     `EMAIL;TYPE=INTERNET:${v.email}`,
-    `item1.URL:${v.web}`,
-    `item1.X-ABLabel:Website`,
+// modificacion vCard 09-11-2025
+
+    `item1.URL:${v.web || v.mapa}`,
+    `item1.X-ABLabel:${v.web ? "Website" : "Ubicación"}`,
+
     `ADR;TYPE=WORK:;;${v.direccion};;;;`,
     `NOTE:${v.nota}`,
     "END:VCARD"
