@@ -79,6 +79,7 @@ document.getElementById("note").textContent = (function(){
 })();
 
 // ======== vCard ========
+// ======== vCard ========
 function descargarVCard() {
   const v = CARD;
   const vcard = [
@@ -89,14 +90,13 @@ function descargarVCard() {
     `ORG:${v.empresa}`,
     `TITLE:${v.cargo}`,
     `TEL;TYPE=WORK,VOICE:${v.telFormateado}`, // fijo como WORK
-    `TEL;TYPE=CELL,VOICE:${v.movilFormateado}`, // móvil
-    `TEL;TYPE=CELL,VOICE;X-ABLabel="WhatsApp":${v.waSolo}`, // WhatsApp
+    //`TEL;TYPE=WORK,VOICE:${v.telFormateado}`, // fijo como WORK
+    // Si quieres incluir también el móvil en la vCard, agrega esta línea:
+    // `TEL;TYPE=CELL,VOICE:${v.movilFormateado}`,
+    `TEL;TYPE=CELL,VOICE:${v.movilFormateado}`,
     `EMAIL;TYPE=INTERNET:${v.email}`,
-// modificacion vCard 09-11-2025
-
-    `item1.URL:${v.web || v.mapa}`,
-    `item1.X-ABLabel:${v.web ? "Website" : "Ubicación"}`,
-
+    `item1.URL:${v.web}`,
+    `item1.X-ABLabel:Website`,
     `ADR;TYPE=WORK:;;${v.direccion};;;;`,
     `NOTE:${v.nota}`,
     "END:VCARD"
@@ -105,11 +105,8 @@ function descargarVCard() {
   const blob = new Blob([vcard], {type:"text/vcard;charset=utf-8"});
   const url = URL.createObjectURL(blob);
   const a = document.createElement("a");
-  a.href = url; 
-  a.download = `${v.nombre.replace(/\s+/g,'_')}.vcf`;
-  document.body.appendChild(a); 
-  a.click(); 
-  a.remove();
+  a.href = url; a.download = `${v.nombre.replace(/\s+/g,'_')}.vcf`;
+  document.body.appendChild(a); a.click(); a.remove();
   URL.revokeObjectURL(url);
 }
 
