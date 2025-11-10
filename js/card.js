@@ -91,26 +91,28 @@ function descargarVCard() {
     `TITLE:${v.cargo}`,
     `TEL;TYPE=WORK,VOICE:${v.telFormateado}`, // fijo como WORK
     `TEL;TYPE=CELL,VOICE:${v.movilFormateado}`, // móvil
-    `TEL;TYPE=CELL,VOICE;X-ABLabel=\"WhatsApp\":${v.waSolo}`, // ✅ WhatsApp agregado
+    `TEL;TYPE=CELL,VOICE;X-ABLabel="WhatsApp":${v.waSolo}`, // WhatsApp
     `EMAIL;TYPE=INTERNET:${v.email}`,
     `item1.URL:${v.web}`,
     `item1.X-ABLabel:Website`,
-    `ADR;TYPE=WORK:;;${v.direccion};;;;`, // ✅ dirección (ya la tenías bien)
+    `item2.URL:https://maps.app.goo.gl/vavewMdidbuJU7m39`, // ✅ enlace clickeable a tu ubicación
+    `item2.X-ABLabel:Ubicación`, // etiqueta visible como “Ubicación”
+    `ADR;TYPE=WORK:;;${v.direccion};;;;`, // texto visible “CDMX, México”
     `NOTE:${v.nota}`,
     "END:VCARD"
   ].join("\n");
 
-  const blob = new Blob([vcard], {type:"text/vcard;charset=utf-8"});
+  const blob = new Blob([vcard], { type: "text/vcard;charset=utf-8" });
   const url = URL.createObjectURL(blob);
   const a = document.createElement("a");
-  a.href = url; 
-  a.download = `${v.nombre.replace(/\s+/g,'_')}.vcf`;
-  document.body.appendChild(a); 
-  a.click(); 
+  a.href = url;
+  a.download = `${v.nombre.replace(/\s+/g, '_')}.vcf`;
+  document.body.appendChild(a);
+  a.click();
   a.remove();
   URL.revokeObjectURL(url);
 }
-// Listener para botón de vCard
+
 
 document.getElementById("saveVcf").addEventListener("click", descargarVCard);
 
