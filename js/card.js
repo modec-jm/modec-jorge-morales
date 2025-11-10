@@ -82,9 +82,11 @@ function descargarVCard() {
     `FN:${v.nombre}`,
     `ORG:${v.empresa}`,
     `TITLE:${v.cargo}`,
-    //`TEL;TYPE=WORK,VOICE:${v.telFormateado}`, // fijo como WORK
+    `TEL;TYPE=WORK,VOICE:${v.telFormateado}`, // fijo como WORK
     // Si quieres incluir también el móvil en la vCard, agrega esta línea:
     `TEL;TYPE=CELL,VOICE:${v.movilFormateado}`,
+    // agregar watsapp como TEL no es estándar, así que lo omitimos
+    `TEL;TYPE=CELL,VOICE;X-ABLabel="WhatsApp":${CARD.waSolo}`,
     `EMAIL;TYPE=INTERNET:${v.email}`,
     `item1.URL:${v.web}`,
     `item1.X-ABLabel:Website`,
