@@ -83,9 +83,8 @@ function descargarVCard() {
     `ORG:${v.empresa}`,
     `TITLE:${v.cargo}`,
     `TEL;TYPE=WORK,VOICE:${v.telFormateado}`, // fijo como WORK
-    // Si quieres incluir también el móvil en la vCard, agrega esta línea:
-    `TEL;TYPE=CELL,VOICE:${v.movilFormateado}`,
-    // agregar watsapp como TEL no es estándar, así que lo omitimos
+    `TEL;TYPE=CELL,VOICE:${v.movilFormateado}`, // móvil
+    `TEL;TYPE=CELL,VOICE;X-ABLabel="WhatsApp":${v.waSolo}`, // WhatsApp
     `EMAIL;TYPE=INTERNET:${v.email}`,
     `item1.URL:${v.web}`,
     `item1.X-ABLabel:Website`,
@@ -97,10 +96,14 @@ function descargarVCard() {
   const blob = new Blob([vcard], {type:"text/vcard;charset=utf-8"});
   const url = URL.createObjectURL(blob);
   const a = document.createElement("a");
-  a.href = url; a.download = `${v.nombre.replace(/\s+/g,'_')}.vcf`;
-  document.body.appendChild(a); a.click(); a.remove();
+  a.href = url; 
+  a.download = `${v.nombre.replace(/\s+/g,'_')}.vcf`;
+  document.body.appendChild(a); 
+  a.click(); 
+  a.remove();
   URL.revokeObjectURL(url);
 }
+
 document.getElementById("saveVcf").addEventListener("click", descargarVCard);
 
 // ======== Compartir nativo / respaldo copiar ========
