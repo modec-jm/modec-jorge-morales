@@ -177,3 +177,8 @@ body{
 .row img[src*="instagram"]{
   filter: none !important;             /* anula inversión en dark/light */
 }
+
+
+/* === Fin de css/card.css === */
+
+

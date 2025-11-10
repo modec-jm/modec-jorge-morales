@@ -16,7 +16,7 @@ const CARD = {
   waSolo: "525531460489",
 
   email: "modec.jorgem@gmail.com",
-  web: "https://tuportafolio.com/andrea",
+  web: "",
   facebook: "https://www.facebook.com/", // aqui poner el link de facebook
   instagram: "https://instagram.com/",  // aqui poner el link de instagram
   direccion: "CDMX, México",
@@ -82,9 +82,9 @@ function descargarVCard() {
     `FN:${v.nombre}`,
     `ORG:${v.empresa}`,
     `TITLE:${v.cargo}`,
-    `TEL;TYPE=WORK,VOICE:${v.telFormateado}`, // fijo como WORK
+    //`TEL;TYPE=WORK,VOICE:${v.telFormateado}`, // fijo como WORK
     // Si quieres incluir también el móvil en la vCard, agrega esta línea:
-    // `TEL;TYPE=CELL,VOICE:${v.movilFormateado}`,
+    `TEL;TYPE=CELL,VOICE:${v.movilFormateado}`,
     `EMAIL;TYPE=INTERNET:${v.email}`,
     `item1.URL:${v.web}`,
     `item1.X-ABLabel:Website`,
