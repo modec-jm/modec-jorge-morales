@@ -1,0 +1,168 @@
+ULTIMO ESTABLE JS V2
+
+// ======== CONFIGURACIÓN (rellena con datos reales del cliente) ========
+const CARD = {
+  nombre: "Jorge Morales",
+  cargo: "Diseño y estilo en tus espacios.",
+  empresa: "MODEC", // nombre de la empresa o profesional
+  telFormateado: "+52 55 5555 5555",
+  telSoloNumeros: "525555555555",            // solo números con LADA
+  email: "andrea@aginterior.studio",
+  web: "https://tuportafolio.com/andrea",
+  instagram: "https://instagram.com/aginteriorstudio",
+  direccion: "CDMX, México",
+  nota: "Agenda una visita de asesoría.",
+  mensajeWhats: "Hola Andrea, me interesa una cotización."
+};
+
+// ======== POBLAR INTERFAZ ========
+document.getElementById("name").textContent = CARD.nombre;
+document.getElementById("role").textContent = CARD.cargo;
+document.getElementById("company").textContent = CARD.empresa;
+
+document.getElementById("address").textContent = CARD.direccion;
+document.getElementById("tel").textContent = CARD.telFormateado;
+document.getElementById("tel").href = `tel:${CARD.telSoloNumeros}`;
+document.getElementById("email").textContent = CARD.email;
+document.getElementById("email").href = `mailto:${CARD.email}`;
+
+document.getElementById("btnCall").href = `tel:${CARD.telSoloNumeros}`;
+document.getElementById("btnWa").href = `https://wa.me/${CARD.telSoloNumeros}?text=${encodeURIComponent(CARD.mensajeWhats)}`;
+document.getElementById("btnMail").href = `mailto:${CARD.email}?subject=${encodeURIComponent("Contacto")}`;
+document.getElementById("btnWeb").href = CARD.web;
+document.getElementById("ig").href = CARD.instagram;
+document.getElementById("note").innerHTML =
+  'Disponibilidad: Lun–Vie 9:00–18:00 · ' + CARD.nota;
+
+// ======== vCard ========
+function descargarVCard() {
+  const v = CARD;
+  const vcard = [
+    "BEGIN:VCARD",
+    "VERSION:3.0",
+    `N:;${v.nombre};;;`,
+    `FN:${v.nombre}`,
+    `ORG:${v.empresa}`,
+    `TITLE:${v.cargo}`,
+    `TEL;TYPE=CELL,VOICE:${v.telFormateado}`,
+    `EMAIL;TYPE=INTERNET:${v.email}`,
+    `item1.URL:${v.web}`,
+    `item1.X-ABLabel:Website`,
+    `ADR;TYPE=WORK:;;${v.direccion};;;;`,
+    `NOTE:${v.nota}`,
+    "END:VCARD"
+  ].join("\n");
+
+  const blob = new Blob([vcard], {type:"text/vcard;charset=utf-8"});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url; a.download = `${v.nombre.replace(/\s+/g,'_')}.vcf`;
+  document.body.appendChild(a); a.click(); a.remove();
+  URL.revokeObjectURL(url);
+}
+document.getElementById("saveVcf").addEventListener("click", descargarVCard);
+
+// ======== Compartir nativo / respaldo copiar ========
+document.getElementById("shareBtn").addEventListener("click", async ()=>{
+  if (navigator.share) {
+    try{
+      await navigator.share({
+        title: `${CARD.nombre} – ${CARD.empresa}`,
+        text: CARD.nota,
+        url: location.href
+      });
+    }catch(e){}
+  } else {
+    try{
+      await navigator.clipboard.writeText(location.href);
+      alert("Enlace copiado al portapapeles");
+    }catch(e){
+      alert("No se pudo compartir automáticamente");
+    }
+  }
+});
+
+// ======== Crear .ics rápido “＋ Agenda” ========
+document.getElementById("btnAdd").addEventListener("click", ()=>{
+  const now = new Date();
+  const pad = n=> String(n).padStart(2,"0");
+  const toICSDate = d =>
+    d.getUTCFullYear() + pad(d.getUTCMonth()+1) + pad(d.getUTCDate()) + "T" +
+    pad(d.getUTCHours()) + pad(d.getUTCMinutes()) + "00Z";
+
+  const start = new Date(now.getTime()+5*60*1000);
+  const end   = new Date(start.getTime()+15*60*1000);
+
+  const ics = [
+    "BEGIN:VCALENDAR","VERSION:2.0","PRODID:-//Card//OneScreen//ES","BEGIN:VEVENT",
+    `DTSTART:${toICSDate(start)}`,
+    `DTEND:${toICSDate(end)}`,
+    `SUMMARY:Llamada con ${CARD.nombre}`,
+    `DESCRIPTION:Tel: ${CARD.telFormateado}\\nEmail: ${CARD.email}\\n${CARD.nota}`,
+    "END:VEVENT","END:VCALENDAR"
+  ].join("\r\n");
+
+  const blob = new Blob([ics], {type:"text/calendar;charset=utf-8"});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url; a.download = `Llamada_${CARD.nombre.replace(/\s+/g,'_')}.ics`;
+  document.body.appendChild(a); a.click(); a.remove();
+  URL.revokeObjectURL(url);
+});
+
+/* ======== Tema claro / oscuro ======== */
+const html = document.documentElement;
+const themeBtn = document.getElementById("toggleTheme");
+const themeIcon = document.querySelector("#toggleTheme img"); // icono dentro del botón
+
+// Cargar preferencia guardada o usar modo oscuro por defecto
+const savedTheme = localStorage.getItem("theme");
+
+if (savedTheme) {
+  html.setAttribute("data-theme", savedTheme);
+  themeIcon.src = savedTheme === "light"
+    ? "img/icons/luz.png"
+    : "img/icons/luna.png";
+} else {
+  html.setAttribute("data-theme", "dark");
+  themeIcon.src = "img/icons/luna.png";
+}
+
+// Alternar tema al hacer clic
+themeBtn.addEventListener("click", () => {
+  const current = html.getAttribute("data-theme");
+  const newTheme = current === "light" ? "dark" : "light";
+  html.setAttribute("data-theme", newTheme);
+  localStorage.setItem("theme", newTheme);
+
+  // Cambiar icono según tema
+  themeIcon.src = newTheme === "light"
+    ? "img/icons/luz.png"
+    : "img/icons/luna.png";
+});
+
+
+Ultimo stable numeros sin agreafr el segundo movil.
+// ======== CONFIGURACIÓN (rellena con datos reales del cliente) ========
+const CARD = {
+  nombre: "Jorge Morales",
+  cargo: "Diseño y estilo en tus espacios.",
+  empresa: "MODEC", // nombre de la empresa o profesional
+
+  // Teléfono que SE MUESTRA y que se usa para "Llamar" (FIJO)
+  telFormateado: "+52 55 5579 2330",
+  telSoloNumeros: "525555792330",            // solo números con LADA (para btnCall y el link del tel en la info)
+
+  // WhatsApp (MÓVIL) — sin "+"
+  waSolo: "525531460489",
+
+  email: "andrea@aginterior.studio",
+  web: "https://tuportafolio.com/andrea",
+  instagram: "https://instagram.com/aginteriorstudio",
+  direccion: "CDMX, México",
+  nota: "Agenda una visita de asesoría.",
+  mensajeWhats: "Hola Jorge, me interesa una cotización."
+};
+
+
+

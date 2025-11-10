@@ -1,0 +1,133 @@
+ULTIMO ESTABLE CSS V1
+:root{
+  --brand:#8A6F5B;
+  --bg:#0f0f0f;
+  --card:#141414;
+  --text:#f2f2f2;
+  --muted:#bcbcbc;
+  --stroke:#262626;
+  --radius:18px;
+  --speed:.25s;
+}
+
+*{box-sizing:border-box}
+html,body{height:100%; margin:0}
+body{
+  font-family:"Poppins",system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,"Helvetica Neue",Arial;
+  color:var(--text);
+  background:
+    radial-gradient(900px 500px at 100% -10%, rgba(138,111,91,.18), transparent 60%),
+    radial-gradient(900px 500px at -10% 110%, rgba(138,111,91,.12), transparent 60%),
+    var(--bg);
+  display:grid; place-items:center; padding:14px;
+}
+
+/* LAYOUT “ONE SCREEN” */
+.frame{
+  width:min(92vw, 420px);
+  height:min(92vh, 680px);
+  background:linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.00));
+  border:1px solid var(--stroke);
+  border-radius:var(--radius);
+  box-shadow:0 18px 50px rgba(0,0,0,.45);
+  display:flex; flex-direction:column; overflow:hidden;
+  backdrop-filter: blur(8px);
+}
+.top{
+  padding:18px; display:flex; align-items:center; justify-content:space-between; gap:8px;
+  border-bottom:1px solid var(--stroke);
+}
+.badge{
+  font-size:.85rem; color:var(--muted);
+  border:1px solid var(--stroke); border-radius:999px; padding:6px 10px;
+  background:rgba(255,255,255,.02)
+}
+.theme{ display:inline-flex; gap:8px; align-items:center; }
+.theme button{
+  width:34px; height:34px; border-radius:8px; border:1px solid var(--stroke);
+  background:#111; color:#fff; cursor:pointer; transition:transform var(--speed);
+}
+.theme button:hover{ transform:translateY(-2px) }
+
+.content{ flex:1; display:grid; grid-template-rows:auto 1fr auto; padding:18px; gap:14px; }
+
+.person{ display:grid; grid-template-columns:72px 1fr; gap:14px; align-items:center; }
+.avatar{
+  width:72px; height:72px; border-radius:16px; overflow:hidden; border:1px solid var(--stroke);
+  background:#111;
+}
+.avatar img{ width:100%; height:100%; object-fit:cover }
+.name{ margin:0 0 2px; font-size:1.25rem; letter-spacing:.2px }
+.role{ margin:0; color:var(--muted); font-size:.95rem }
+.company{ margin:4px 0 0; font-size:.95rem; color:inherit } /* hereda el color de texto */
+
+.quick{ display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+.btn{
+  display:inline-flex; align-items:center; justify-content:center; gap:10px;
+  padding:12px 12px; border-radius:12px; border:1px solid var(--stroke);
+  background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.00));
+  color:var(--text); /* usa el color de texto del tema */
+  text-decoration:none; font-weight:600;
+  transition:transform var(--speed), border-color var(--speed), background var(--speed);
+  text-align:center;
+}
+.btn:hover{ transform:translateY(-2px); border-color:#333 }
+.btn.primary{
+  background:linear-gradient(180deg, var(--brand), color-mix(in oklab, var(--brand), black 20%));
+  border-color:transparent;
+  color:#fff; /* siempre blanco en primario para contrastar */
+}
+.btn.ghost{ background:transparent }
+
+.info{ border:1px dashed var(--stroke); border-radius:12px; padding:12px; font-size:.95rem }
+.row{ display:flex; align-items:center; gap:10px; padding:6px 0 }
+.row span{ color:var(--muted) }
+.row a{ color:inherit; text-decoration:none }  /* hereda color del texto */
+.row a:hover{ color:var(--brand) }
+
+.footer{
+  padding:14px 18px; border-top:1px solid var(--stroke);
+  display:flex; align-items:center; justify-content:space-between; gap:8px;
+}
+.small{ color:var(--muted); font-size:.85rem }
+.cta{ display:flex; gap:8px; flex-wrap:wrap; }
+.cta .btn{ padding:10px 12px }
+
+/* Accesibilidad */
+:focus-visible{ outline:2px dashed var(--brand); outline-offset:2px }
+
+/* === Tema CLARO (solo variables y un ajuste mínimo) === */
+:root[data-theme="light"]{
+  --brand:#b07b57;
+  --bg:#fafafa;
+  --card:#ffffff;
+  --text:#000000;
+  --muted:#555;
+  --stroke:#e0e0e0;
+}
+/* En light los botones normales deben verse con texto oscuro (ya heredan var(--text)) */
+:root[data-theme="light"] .btn.ghost{ color:var(--text); }
+
+/* Iconos */
+
+/* Iconos (optimizado y extendido a .row) */
+.btn img,
+.theme button img,
+.row img {
+  width: 18px;
+  height: 18px;
+  vertical-align: middle;
+  transition: filter .3s ease;
+  filter: invert(1); /* blancos en dark */
+}
+
+/* En modo claro:
+   - íconos de botones normales y .row se vuelven oscuros
+   - íconos de la barra (.theme) siguen blancos para contrastar */
+:root[data-theme="light"] .btn img,
+:root[data-theme="light"] .row img {
+  filter: invert(0);
+}
+:root[data-theme="light"] .theme button img {
+  filter: invert(1);
+}

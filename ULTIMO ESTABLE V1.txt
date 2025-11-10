@@ -1,0 +1,69 @@
+ULTIMO ESTABLE V1
+
+<!doctype html>
+<html lang="es">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Tarjeta de Presentación</title>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/card.css">
+</head>
+<body>
+
+<div class="frame" role="region" aria-label="Tarjeta de presentación">
+  <!-- BARRA SUPERIOR -->
+  <div class="top">
+    <div class="badge">Tarjeta de contacto</div>
+    <div class="theme">
+      <button id="saveVcf" title="Guardar contacto"><img src="img/icons/save.png" alt="Guardar contacto"></button>
+      <button id="shareBtn" title="Compartir"><img src="img/icons/clip.png" alt="Compartir"></button>
+        <button id="toggleTheme" title="Cambiar tema"><img src="img/icons/luna.png" alt="Cambiar tema"></button>
+    </div>
+  </div>
+
+  <!-- CONTENIDO -->
+  <div class="content">
+    <!-- Persona -->
+    <div class="person">
+      <div class="avatar">
+        <img src="img/IconoWeb.png" alt="Foto del cliente">
+      </div>
+      <div>
+        <h1 class="name" id="name">Nombre del Cliente</h1>
+        <p class="role" id="role">Cargo / Especialidad</p>
+        <p class="company" id="company">Empresa</p>
+      </div>
+    </div>
+
+    <!-- Acciones rápidas (2x2) -->
+    <div class="quick">
+      <a id="btnCall" class="btn primary" href="#">📞 Llamar</a>
+      <a id="btnWa" class="btn" href="#" target="_blank" rel="noopener"><img src="img/icons/whatsapp.png" alt="">WhatsApp</a>
+      <a id="btnMail" class="btn" href="#"><img src="img/icons/correo.png" alt="">Email</a>
+      <a id="btnWeb" class="btn ghost" href="#" target="_blank" rel="noopener"><img src="img/icons/web.png" alt="">Web / Portafolio</a>
+    </div>
+
+    <!-- Información breve -->
+    <div class="info">
+      <div class="row"><img src="img/icons/ubicacion.png" alt=""><span id="address">Ciudad · País</span></div>
+      <div class="row"><img src="img/icons/telefonofijo.png" alt=""><a id="tel" href="#">+00 0000 0000</a></div>
+      <div class="row"><img src="img/icons/correo.png"><a id="email" href="#">correo@dominio.com</a></div>
+      <div class="row"><img src="img/icons/instagram.png"><a id="ig" href="#" target="_blank" rel="noopener">@instagram</a></div>
+    </div>
+  </div>
+
+  <!-- PIE DE TARJETA -->
+  <div class="footer">
+    <div class="small" id="note">Disponibilidad: Lun–Vie 9:00–18:00</div>
+    <div class="cta">
+      <a id="btnAdd" class="btn" href="#">＋ Agenda</a>
+    </div>
+  </div>
+</div>
+
+<script src="js/card.js" defer></script>
+</body>
+</html>

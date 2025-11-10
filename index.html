@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Persianas, Pisos & Diseño de Interiores</title>
+  <meta name="description" content="Persianas, pisos laminados y diseño de interiores. Asesoría personalizada y materiales de alta calidad." />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+  <!-- HERO -->
+  <header class="hero" id="top">
+    <div class="container">
+      <div class="brand-chip"><span class="brand-dot"></span> Persianas • Pisos • Diseño</div>
+      <h1>Elegancia funcional para tus espacios</h1>
+      <p class="subtitle">Instalación de persianas, pisos laminados y proyectos de diseño de interiores con asesoría personalizada y materiales de alta calidad.</p>
+
+      <div class="cta-row">
+        <a href="#portafolio" class="btn primary">Ver portafolio</a>
+        <a href="#" id="btn-vcard" class="btn">Guardar contacto (.vcf)</a>
+        <a href="#contacto" class="btn ghost">Contactar</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- RESUMEN DE SERVICIOS -->
+  <section>
+    <div class="container grid-3">
+      <div class="card fade">
+        <h3>Persianas a medida</h3>
+        <p>Enrollables, sheer, blackout, verticales y más. Medición, fabricación e instalación.</p>
+      </div>
+      <div class="card fade">
+        <h3>Pisos laminados / vinílicos</h3>
+        <p>Soluciones resistentes y de fácil mantenimiento, con texturas y tonos de madera.</p>
+      </div>
+      <div class="card fade">
+        <h3>Diseño de interiores</h3>
+        <p>Propuesta integral: concepto, materiales, mobiliario y ambientación.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PORTAFOLIO -->
+  <section id="portafolio">
+    <div class="container">
+      <h2 class="h2">Proyectos destacados</h2>
+      <p class="muted">Una muestra de trabajos recientes. Toca para ampliar.</p>
+
+      <div class="gallery fade" id="gallery">
+        <!-- Reemplaza las rutas por tus fotos en /img/ -->
+        <figure><img src="img/proyecto1.jpg" alt="Sala con persianas enrollables"><figcaption>Persianas enrollables</figcaption></figure>
+        <figure><img src="img/proyecto2.jpg" alt="Piso laminado en oficina moderna"><figcaption>Piso laminado roble</figcaption></figure>
+        <figure><img src="img/proyecto3.jpg" alt="Diseño integral de sala"><figcaption>Diseño integral</figcaption></figure>
+        <figure><img src="img/proyecto4.jpg" alt="Blackout en recámara principal"><figcaption>Blackout recámara</figcaption></figure>
+        <figure><img src="img/proyecto5.jpg" alt="Cortinas sheer en comedor"><figcaption>Sheer en comedor</figcaption></figure>
+        <figure><img src="img/proyecto6.jpg" alt="Vinílico en área comercial"><figcaption>Vinílico comercial</figcaption></figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- LIGHTBOX -->
+  <div class="lightbox" id="lightbox" aria-hidden="true">
+    <button class="close" id="lb-close" aria-label="Cerrar">✕ Cerrar</button>
+    <img id="lb-img" src="" alt="">
+  </div>
+
+  <!-- CONTACTO -->
+  <section id="contacto">
+    <div class="container contact">
+      <div class="panel fade">
+        <h2 class="h2">Contacto directo</h2>
+        <div class="item">
+          <strong>Teléfono</strong>
+          <a href="tel:+525512345678">+52 55 1234 5678</a>
+        </div>
+        <div class="item">
+          <strong>WhatsApp</strong>
+          <a class="wa-link" href="https://wa.me/525512345678">Enviar mensaje</a>
+        </div>
+        <div class="item">
+          <strong>Email</strong>
+          <a href="mailto:contacto@tudominio.com">contacto@tudominio.com</a>
+        </div>
+        <div class="item">
+          <strong>Instagram</strong>
+          <a href="https://instagram.com/tuempresa" target="_blank" rel="noopener">@tuempresa</a>
+        </div>
+        <div class="item">
+          <strong>Dirección</strong>
+          <span class="muted">Av. Ejemplo 123, Col. Centro, CDMX</span>
+        </div>
+        <div class="divider"></div>
+        <div class="cta-row start">
+          <a href="#" id="btn-vcard-2" class="btn">Descargar contacto</a>
+          <a href="#top" class="btn ghost">↑ Volver arriba</a>
+        </div>
+      </div>
+
+      <div class="panel fade">
+        <h2 class="h2">¿Por qué elegirnos?</h2>
+        <p class="muted">Garantía en instalación, tiempos de entrega confiables y una selección curada de materiales. Visitamos tu espacio para una asesoría precisa.</p>
+        <div class="divider"></div>
+        <h3 class="h3">Horario</h3>
+        <p class="muted">Lun–Vie: 9:00–18:00 · Sáb: 10:00–14:00</p>
+        <div class="divider"></div>
+        <h3 class="h3">Cobertura</h3>
+        <p class="muted">CDMX y área metropolitana. Proyectos foráneos a solicitud.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      © <span id="year"></span> Persianas & Diseño de Interiores · Todos los derechos reservados
+    </div>
+  </footer>
+
+  <!-- WhatsApp FAB -->
+  <div class="fab">
+    <a aria-label="WhatsApp" class="wa-link" href="https://wa.me/525512345678" target="_blank" rel="noopener">🟢</a>
+  </div>
+
+  <script src="js/script.js"></script>
+</body>
+</html>
