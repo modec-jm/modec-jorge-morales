@@ -90,14 +90,12 @@ function descargarVCard() {
     `ORG:${v.empresa}`,
     `TITLE:${v.cargo}`,
     `TEL;TYPE=WORK,VOICE:${v.telFormateado}`, // fijo como WORK
-    //`TEL;TYPE=WORK,VOICE:${v.telFormateado}`, // fijo como WORK
-    // Si quieres incluir también el móvil en la vCard, agrega esta línea:
-    // `TEL;TYPE=CELL,VOICE:${v.movilFormateado}`,
-    `TEL;TYPE=CELL,VOICE:${v.movilFormateado}`,
+    `TEL;TYPE=CELL,VOICE:${v.movilFormateado}`, // móvil
+    `TEL;TYPE=CELL,VOICE;X-ABLabel=\"WhatsApp\":${v.waSolo}`, // ✅ WhatsApp agregado
     `EMAIL;TYPE=INTERNET:${v.email}`,
     `item1.URL:${v.web}`,
     `item1.X-ABLabel:Website`,
-    `ADR;TYPE=WORK:;;${v.direccion};;;;`,
+    `ADR;TYPE=WORK:;;${v.direccion};;;;`, // ✅ dirección (ya la tenías bien)
     `NOTE:${v.nota}`,
     "END:VCARD"
   ].join("\n");
@@ -105,10 +103,14 @@ function descargarVCard() {
   const blob = new Blob([vcard], {type:"text/vcard;charset=utf-8"});
   const url = URL.createObjectURL(blob);
   const a = document.createElement("a");
-  a.href = url; a.download = `${v.nombre.replace(/\s+/g,'_')}.vcf`;
-  document.body.appendChild(a); a.click(); a.remove();
+  a.href = url; 
+  a.download = `${v.nombre.replace(/\s+/g,'_')}.vcf`;
+  document.body.appendChild(a); 
+  a.click(); 
+  a.remove();
   URL.revokeObjectURL(url);
 }
+// Listener para botón de vCard
 
 document.getElementById("saveVcf").addEventListener("click", descargarVCard);
 
