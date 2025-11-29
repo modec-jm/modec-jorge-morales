@@ -1,37 +1,36 @@
-// ======== CONFIGURACIÓN (rellena con datos reales del cliente) ========
+// ======== CONFIGURACIÓN ========
 const CARD = {
   nombre: "Jorge Morales",
-  cargo: "Diseño y estilo en tus espacios.",
-  empresa: "MODEC", // nombre de la empresa o profesional
+  cargo: "Decoracion y estilo para tus espacios.",
+  empresa: "MODEC",
 
-  // Teléfono que SE MUESTRA y que se usa para "Llamar" (FIJO)
-  telFormateado: "+52 55 5579 2330",
-  telSoloNumeros: "525555792330",            // solo números con LADA (para btnCall y el link del tel en la info)
+  // 📞 Botón llamar (móvil principal)
+  telFormateado: "55 3146 0489",      // no lo usamos en la info ahora
+  telSoloNumeros: "5531460489",
 
-  // Teléfono móvil (para mostrar en "Información breve")
-  movilFormateado: "+52 55 1827 9830",
-  movilSolo: "525518279830",
+  // ☎️ Teléfono fijo adicional
+  fijoEtiquetado: "55 5579 2330",
+  fijoSolo: "5555792330",
 
-  // WhatsApp (MÓVIL) — sin "+"
-  waSolo: "525531460489",
+  // 📱 Número que irá debajo de CDMX (info breve)
+  movilInfo: "5518279830",
+
+  // 💬 WhatsApp (mismo que móvil principal para contacto rápido)
+  waSolo: "5531460489",
 
   email: "modec.jorgem@gmail.com",
   web: "",
-  facebook: "https://www.facebook.com/", // aqui poner el link de facebook
-  instagram: "https://instagram.com/",  // aqui poner el link de instagram
-  // cambio direccion 09-11-2025
+  facebook: "https://www.facebook.com/",
+  instagram: "https://instagram.com/",
 
-// En tu objeto CARD:
-direccion: "CDMX, México",
-mapa: "https://maps.app.goo.gl/vavewMdidbuJU7m39",
+  direccion: "CDMX, México",
+  mapa: "https://maps.app.goo.gl/vavewMdidbuJU7m39",
 
-
-  nota: "", // si lo dejas vacío, mostramos solo el horario base
+  nota: "",
   mensajeWhats: "Hola Jorge, me interesa una cotización."
 };
 
-// ======== helpers visuales ========
-// Mostrar handle corto en redes: @usuario (IG) y /pagina (FB)
+// ======== HELPERS ========
 const handleFromUrl = (url) => {
   try {
     const u = new URL(url);
@@ -39,138 +38,148 @@ const handleFromUrl = (url) => {
     if (u.hostname.includes("instagram.com")) return path ? `@${path}` : "Instagram";
     if (u.hostname.includes("facebook.com")) return path ? `/${path}` : "Facebook";
     return u.hostname.replace("www.", "");
-  } catch { return url; }
+  } catch {
+    return url;
+  }
 };
 
-// ======== POBLAR INTERFAZ ========
+// ======== POBLAR UI ========
 document.getElementById("name").textContent = CARD.nombre;
 document.getElementById("role").textContent = CARD.cargo;
 document.getElementById("company").textContent = CARD.empresa;
 
 document.getElementById("address").textContent = CARD.direccion;
 
-// ⚠️ Aquí ahora mostramos el MÓVIL en la sección de información y al hacer clic se llama al móvil
-document.getElementById("tel").textContent = CARD.movilFormateado;
-document.getElementById("tel").href = `tel:${CARD.movilSolo}`;
+// 📱 Mostrar número debajo de CDMX en la fila info (#tel)
+const telEl = document.getElementById("tel");
+const m = CARD.movilInfo;
+if (telEl) {
+  // Formateo: 55 1827 9830
+  const formateado = m.replace(/(\d{2})(\d{4})(\d{4})/, "$1 $2 $3");
+  telEl.textContent = formateado;
+  telEl.href = `tel:${m}`;
+}
 
-// Facebook (fila de info)
-document.getElementById("fb").textContent = handleFromUrl(CARD.facebook);
-document.getElementById("fb").href = CARD.facebook;
-document.getElementById("fb").target = "_blank";
+// Redes
+const fbEl = document.getElementById("fb");
+if (fbEl) {
+  fbEl.textContent = handleFromUrl(CARD.facebook);
+  fbEl.href = CARD.facebook;
+  fbEl.target = "_blank";
+  fbEl.rel = "noopener";
+}
 
-// Instagram (fila de info)
-document.getElementById("ig").href = CARD.instagram;
-document.getElementById("ig").textContent = handleFromUrl(CARD.instagram);
+const igEl = document.getElementById("ig");
+if (igEl) {
+  igEl.textContent = handleFromUrl(CARD.instagram);
+  igEl.href = CARD.instagram;
+  igEl.target = "_blank";
+  igEl.rel = "noopener";
+}
 
 // Botones rápidos
-document.getElementById("btnCall").href = `tel:${CARD.telSoloNumeros}`; // ➜ llama al FIJO
-document.getElementById("btnWa").href =
-  `https://wa.me/${CARD.waSolo}?text=${encodeURIComponent(CARD.mensajeWhats)}`; // ➜ WhatsApp al MÓVIL
-document.getElementById("btnMail").href =
-  `mailto:${CARD.email}?subject=${encodeURIComponent("Contacto")}`;
-document.getElementById("btnWeb").href = CARD.web;
+const btnCall = document.getElementById("btnCall");
+if (btnCall) {
+  btnCall.href = `tel:${CARD.telSoloNumeros}`;
+}
 
-document.getElementById("note").textContent = (function(){
-  // Nota con fallback elegante
-  const baseDisp = "Disponibilidad: Lun–Vie 9:00–18:00 · Sáb 9:00–14:00";
-  return CARD.nota && CARD.nota.trim()
-    ? `${baseDisp} · ${CARD.nota.trim()}`
-    : baseDisp;
-})();
+const btnWa = document.getElementById("btnWa");
+if (btnWa) {
+  btnWa.href = `https://wa.me/52${CARD.waSolo}?text=${encodeURIComponent(CARD.mensajeWhats)}`;
+  btnWa.target = "_blank";
+  btnWa.rel = "noopener";
+}
 
-// ======== vCard ========
+// Email
+const btnMail = document.getElementById("btnMail");
+if (btnMail) {
+  btnMail.href = `mailto:${CARD.email}?subject=${encodeURIComponent("Contacto")}`;
+}
+
+// Web / Portafolio
+const btnWeb = document.getElementById("btnWeb");
+if (btnWeb) {
+  btnWeb.href = CARD.web || "#";
+  if (CARD.web) {
+    btnWeb.target = "_blank";
+    btnWeb.rel = "noopener";
+  }
+}
+
+// 🗺 Botón "Visítanos" → abre el mapa real
+const btnAdd = document.getElementById("btnAdd");
+if (btnAdd) {
+  btnAdd.href = CARD.mapa;
+  btnAdd.target = "_blank";
+  btnAdd.rel = "noopener";
+}
+
+// Nota / disponibilidad
+const noteEl = document.getElementById("note");
+if (noteEl) {
+  const base = "Disponibilidad: Lun–Vie 9:00–18:00 · Sáb 9:00–14:00";
+  noteEl.textContent = CARD.nota && CARD.nota.trim() ? `${base} · ${CARD.nota.trim()}` : base;
+}
+
 // ======== vCard ========
 function descargarVCard() {
   const v = CARD;
-  const vcard = [
+  const vcf = [
     "BEGIN:VCARD",
     "VERSION:3.0",
     `N:;${v.nombre};;;`,
     `FN:${v.nombre}`,
     `ORG:${v.empresa}`,
     `TITLE:${v.cargo}`,
-    `TEL;TYPE=WORK,VOICE:${v.telFormateado}`, // fijo como WORK
-    `TEL;TYPE=CELL,VOICE:${v.movilFormateado}`, // móvil
-    `TEL;TYPE=CELL,VOICE;X-ABLabel="WhatsApp":${v.waSolo}`, // WhatsApp
+    `TEL;TYPE=WORK,VOICE:${v.fijoSolo}`,
+    `TEL;TYPE=CELL,VOICE:${v.telSoloNumeros}`,
+    `TEL;TYPE=CELL,VOICE;X-ABLabel="WhatsApp":+52${v.waSolo}`,
     `EMAIL;TYPE=INTERNET:${v.email}`,
     `item1.URL:${v.web}`,
     `item1.X-ABLabel:Website`,
-    `item2.URL:https://maps.app.goo.gl/vavewMdidbuJU7m39`, // ✅ enlace clickeable a tu ubicación
-    `item2.X-ABLabel:Ubicación`, // etiqueta visible como “Ubicación”
-    `ADR;TYPE=WORK:;;${v.direccion};;;;`, // texto visible “CDMX, México”
+    `item2.URL:${v.mapa}`,
+    `item2.X-ABLabel:Ubicación`,
+    `ADR;TYPE=WORK:;;${v.direccion};;;;`,
     `NOTE:${v.nota}`,
     "END:VCARD"
   ].join("\n");
 
-  const blob = new Blob([vcard], { type: "text/vcard;charset=utf-8" });
+  const blob = new Blob([vcf], { type: "text/vcard;charset=utf-8" });
   const url = URL.createObjectURL(blob);
   const a = document.createElement("a");
   a.href = url;
-  a.download = `${v.nombre.replace(/\s+/g, '_')}.vcf`;
+  a.download = `${v.nombre.replace(/\s+/g,"_")}.vcf`;
   document.body.appendChild(a);
   a.click();
   a.remove();
   URL.revokeObjectURL(url);
 }
 
-
-document.getElementById("saveVcf").addEventListener("click", descargarVCard);
-
-// ======== Compartir nativo / respaldo copiar ========
-document.getElementById("shareBtn").addEventListener("click", async ()=>{
-  if (navigator.share) {
-    try{
-      await navigator.share({
-        title: `${CARD.nombre} – ${CARD.empresa}`,
-        text: CARD.nota || "Contacto",
-        url: location.href
-      });
-    }catch(e){}
-  } else {
-    try{
-      await navigator.clipboard.writeText(location.href);
-      alert("Enlace copiado al portapapeles");
-    }catch(e){
-      alert("No se pudo compartir automáticamente");
-    }
-  }
-});
-
-// ======== "Visítanos" → abrir Google Maps ========
-document.getElementById("btnAdd").addEventListener("click", (e)=>{
-  e.preventDefault();
-  const url = "https://maps.app.goo.gl/vavewMdidbuJU7m39"; // 🔹 tu enlace real
-  window.open(url, "_blank", "noopener");
-});
-
-
-/* ======== Tema claro / oscuro ======== */
-const html = document.documentElement;
-const themeBtn = document.getElementById("toggleTheme");
-const themeIcon = document.querySelector("#toggleTheme img"); // icono dentro del botón
-
-// Cargar preferencia guardada o usar modo oscuro por defecto
-const savedTheme = localStorage.getItem("theme");
-
-if (savedTheme) {
-  html.setAttribute("data-theme", savedTheme);
-  themeIcon.src = savedTheme === "light"
-    ? "img/icons/luz.png"
-    : "img/icons/luna.png";
-} else {
-  html.setAttribute("data-theme", "dark");
-  themeIcon.src = "img/icons/luna.png";
+// Guardar contacto
+const saveBtn = document.getElementById("saveVcf");
+if (saveBtn) {
+  saveBtn.addEventListener("click", descargarVCard);
 }
 
-// Alternar tema al hacer clic
-themeBtn.addEventListener("click", () => {
-  const current = html.getAttribute("data-theme");
-  const newTheme = current === "light" ? "dark" : "light";
-  html.setAttribute("data-theme", newTheme);
-  localStorage.setItem("theme", newTheme);
-
-  // Cambiar icono según tema
-  themeIcon.src = newTheme === "light"
-    ? "img/icons/luz.png"
-    : "img/icons/luna.png";
-});
+// Compartir / copiar enlace
+const shareBtn = document.getElementById("shareBtn");
+if (shareBtn) {
+  shareBtn.addEventListener("click", async ()=>{
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: `${CARD.nombre} – ${CARD.empresa}`,
+          text: CARD.nota || "Contacto",
+          url: location.href
+        });
+      } catch {}
+    } else {
+      try {
+        await navigator.clipboard.writeText(location.href);
+        alert("Enlace copiado al portapapeles");
+      } catch {
+        alert("No se pudo copiar el enlace");
+      }
+    }
+  });
+}
