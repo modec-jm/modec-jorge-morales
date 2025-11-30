@@ -131,8 +131,13 @@ function descargarVCard() {
     `FN:${v.nombre}`,
     `ORG:${v.empresa}`,
     `TITLE:${v.cargo}`,
+    // ☎️ Fijo (work)
     `TEL;TYPE=WORK,VOICE:${v.fijoSolo}`,
-    `TEL;TYPE=CELL,VOICE:${v.telSoloNumeros}`,
+    // 📱 Móvil principal
+    `TEL;TYPE=CELL,VOICE;PREF=1:${v.telSoloNumeros}`,
+    // 📱 Móvil secundario
+    `TEL;TYPE=CELL,VOICE:${v.movilInfo}`,
+    // 💬 WhatsApp (mismo que el principal)
     `TEL;TYPE=CELL,VOICE;X-ABLabel="WhatsApp":+52${v.waSolo}`,
     `EMAIL;TYPE=INTERNET:${v.email}`,
     `item1.URL:${v.web}`,
@@ -154,6 +159,7 @@ function descargarVCard() {
   a.remove();
   URL.revokeObjectURL(url);
 }
+
 
 // Guardar contacto
 const saveBtn = document.getElementById("saveVcf");
